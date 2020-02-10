@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Insert title here</title>
+<style>
+    /*table{width:300px; height:300px; text-align: center;}
+    tr.on{background:red; color:#fff;}*/
+    #txtarea{display: none;}
+</style>
+</head>
+<body>
+    <!--<table border=1px solid black;>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>조회수</th>
+            <th>작성일자</th>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>3번제목</td>
+            <td>0</td>
+            <td>11-07-13</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2번제목</td>
+            <td>0</td>
+            <td>11-07-13</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1번제목</td>
+            <td>0</td>
+            <td>11-07-13</td>
+        </tr>
+    </table>
+    선택된행 :
+    <span id="s1">/</span>
+    <span id="s2">/</span>
+    <span id="s3">/</span>
+    <span id="s4"></span>-->
+    <form id="enrollform">
+        <li>
+            <label>아이디</label><input type="text" id="userid" required>
+        </li>
+        <li>
+            <label>패스워드</label><input type="password" id="userpwd" required>
+        </li>
+        <li>
+            <label>패스워드확인</label><input type="password" id="pwdchk" required>
+        </li>
+        <li>
+            <label>관심분야(java, html/css, javascript/jquery, 데이터베이스 중 다수 값이면 , 구분하여 작성)</label>
+            <input type="text" placeholder="java, html/css, javascript/jquery, 데이터베이스 중 다수 값이면 , 구분" style="width:70%;" required>
+        </li>
+        <li>
+            <label>email : </label>
+            <input type="email" required>
+        </li>
+        <li>
+            <label>지식정도(상,중,하로 작성)</label>
+            <select>
+                <option selected>상</option>
+                <option>중</option>
+                <option>하</option>
+            </select>
+        </li>
+        <li>
+            <label>레벨</label>
+            <select>
+                <option selected>고수</option>
+                <option>중수</option>
+                <option>하수</option>
+            </select>
+        </li>
+        <li>
+            <label>전화번호</label>
+            <select id="phone1" name="phone1">
+                <option value="010" selected>010</option>
+                <option value="011">011</option>
+                <option value="016">016</option>
+                <option value="019">019</option>
+            </select> -
+            <input type="text"> -
+            <input type="text">
+        </li>
+        <li>
+            <input type="submit" value="회원가입">
+            <input type="reset" value="취소">
+        </li>
+    </form>
+    <button id="replybtn">댓글등록</button><br>
+    <textarea id="txtarea"></textarea>   
+    
+    <script>
+        $(function(){
+            $('table td').click(function(){
+                var inputtxt = $(this).parent().children().text();
+                $(this).parent().toggleClass("on");
+                if($(this).parent().attr("class") == "on"){
+                    $('#s1').html($(this).parent().children('td:nth-child(1)').text()+'/');
+                    $('#s2').html($(this).parent().children('td:nth-child(2)').text()+'/');
+                    $('#s3').html($(this).parent().children('td:nth-child(3)').text()+'/');
+                    $('#s4').html($(this).parent().children('td:nth-child(4)').text());
+                    
+                } else {
+                    $('.area').html("");
+                }
+                
+            });
+        });
+        
+        $(function(){
+            $('#replybtn').click(function(){
+               $('#txtarea').css('display','inline-block');
+            });
+            $('#userid').blur(function(){
+                var rExp2 = /^[A-Za-z](?=.*[A-Za-z])(?=.*[0-9]){6,10}(?=.*[*/!/&])/;
+                if(!rExp2.test($(this).val())){
+                    alert("영문자와 숫자로 8글자 이상 12글자 이하, 숫자 하나이상 기호문자 한개로 구성되어야 합니다");
+                    return false;
+                }
+            });
+            $('#userpwd').blur(function(){
+                var rExp2 = /^[A-Za-z](?=.*[A-Za-z])(?=.*[0-9]){6,10}(?=.*[*/!/&])/;
+                if(!rExp2.test($(this).val())){
+                    alert("영문자와 숫자로 8글자 이상 12글자 이하, 숫자 하나이상 기호문자 한개로 구성되어야 합니다");
+                    return false;
+                }
+            });
+            $('#pwdchk').blur(function(){
+				if($('#userpwd').val() == $(this).val()){
+					alert("비밀번호 일치합니다.");
+                    return false;
+				} else{
+					alert("비밀번호 일치 하지 않습니다.");
+                    return false;
+				}
+			});
+            
+        });
+    </script>
+</body>
+</html>
